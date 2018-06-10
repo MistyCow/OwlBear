@@ -21,10 +21,10 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="definitions.h">
+    <ClInclude Include="BoardState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BoardState.h">
+    <ClInclude Include="definitions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,10 +35,10 @@
     <ClCompile Include="OwlBear.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="definitions.cpp">
+    <ClCompile Include="BoardState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BoardState.cpp">
+    <ClCompile Include="definitions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
