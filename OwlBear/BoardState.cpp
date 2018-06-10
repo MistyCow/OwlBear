@@ -405,6 +405,43 @@ std::vector<Move> BoardState::findLegalMoves()
                 continue;
             }
 
+            // White King
+            // TODO: Stop the king from walking into checks, or, if under check, avoid any moves that end with the king in check
+            if (board[i] == wK)
+            {
+                if ((board[i - 11] == empty) || (board[i - 11] > 6 && board[i - 11] < 13))
+                {
+                    legalMoves.push_back(Move(i, i - 11));
+                }
+                if ((board[i - 10] == empty) || (board[i - 10] > 6 && board[i - 10] < 13))
+                {
+                    legalMoves.push_back(Move(i, i - 10));
+                }
+                if ((board[i - 9] == empty) || (board[i - 9] > 6 && board[i - 9] < 13))
+                {
+                    legalMoves.push_back(Move(i, i - 9));
+                }
+                if ((board[i - 1] == empty) || (board[i - 1] > 6 && board[i - 1] < 13))
+                {
+                    legalMoves.push_back(Move(i, i - 1));
+                }
+                if ((board[i + 1] == empty) || (board[i + 1] > 6 && board[i + 1] < 13))
+                {
+                    legalMoves.push_back(Move(i, i + 1));
+                }
+                if ((board[i + 9] == empty) || (board[i + 9] > 6 && board[i + 9] < 13))
+                {
+                    legalMoves.push_back(Move(i, i + 9));
+                }
+                if ((board[i + 10] == empty) || (board[i + 10] > 6 && board[i + 10] < 13))
+                {
+                    legalMoves.push_back(Move(i, i + 10));
+                }
+                if ((board[i + 11] == empty) || (board[i + 11] > 6 && board[i + 11] < 13))
+                {
+                    legalMoves.push_back(Move(i, i + 11));
+                }
+            }
         }
     }
 
