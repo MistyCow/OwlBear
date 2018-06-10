@@ -12,7 +12,7 @@ BoardState::BoardState()
             continue;
         }
 
-        if ((i && 10 == 1) || (i && 10 == 0))
+        if ((i % 10 == 0) || (i % 10 == 9))
         {
             board[i] = illegal;
             continue;
@@ -50,7 +50,7 @@ std::vector<Move> BoardState::findLegalMoves()
                     legalMoves.push_back(Move(i, i + 8));
 
                     // We can move two forward if we are on the second rank
-                    if ((i % 10 == 4) && (board[i + 20] == empty))
+                    if ((i > 30 && i < 39) && (board[i + 20] == empty))
                     {
                         legalMoves.push_back(Move(i, i + 16));
                     }
@@ -62,7 +62,7 @@ std::vector<Move> BoardState::findLegalMoves()
                     legalMoves.push_back(Move(i, i + 9));
                 }
 
-                if ((board[i + 11] > 6) && (board[i + 9] < 13))
+                if ((board[i + 11] > 6) && (board[i + 11] < 13))
                 {
                     legalMoves.push_back(Move(i, i + 11));
                 }
@@ -71,7 +71,84 @@ std::vector<Move> BoardState::findLegalMoves()
             // White Bishops
             if (board[i] == wB)
             {
+                //Up Left
+                for (int j = i - 11; j > 20; j -= 11)
+                {
+                    if (board[j] == empty)
+                    {
+                        legalMoves.push_back(Move(i, j));
+                        continue;
+                    }
+                    if (board[j] == illegal)
+                    {
+                        break;
+                    }
+                    if (board[j] > 6)
+                    {
+                        legalMoves.push_back(Move(i, j));
+                        break;
+                    }
+                }
+                //Up Right
+                for (int j = i - 9; j > 20; j -= 9)
+                {
+                    if (board[j] == empty)
+                    {
+                        legalMoves.push_back(Move(i, j));
+                        continue;
+                    }
 
+                    if (board[j] == illegal)
+                    {
+                        break;
+                    }
+
+                    if (board[j] > 6)
+                    {
+                        legalMoves.push_back(Move(i, j));
+                        break;
+                    }
+                }
+                //Down Left
+                for (int j = i + 9; j < 99; j += 9)
+                {
+                    if (board[j] == empty)
+                    {
+                        legalMoves.push_back(Move(i, j));
+                        continue;
+                    }
+
+                    if (board[j] == illegal)
+                    {
+                        break;
+                    }
+
+                    if (board[j] > 6)
+                    {
+                        legalMoves.push_back(Move(i, j));
+                        break;
+                    }
+                }
+                //Down Right
+                for (int j = i + 11; j > 20; j += 11)
+                {
+                    if (board[j] == empty)
+                    {
+                        legalMoves.push_back(Move(i, j));
+                        continue;
+                    }
+
+                    if (board[j] == illegal)
+                    {
+                        break;
+                    }
+
+                    if (board[j] > 6)
+                    {
+                        legalMoves.push_back(Move(i, j));
+                        break;
+                    }
+                }
             }
              
         }
