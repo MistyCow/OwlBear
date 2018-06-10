@@ -35,10 +35,14 @@ std::vector<Move> BoardState::findLegalMoves()
     // White Moves
     if (side == white)
     {
-        for (int i = 21; i < 98; i++)
+        for (int i = 21; i < 99; i++)
         {
             // Check for sentry squares
             if (board[i] == illegal)
+                continue;
+         
+            // And for empty squares
+            if (board[i] == empty)
                 continue;
 
             // White Pawns
@@ -68,6 +72,7 @@ std::vector<Move> BoardState::findLegalMoves()
                 }
                 continue;
             }
+
             // White Bishops
             if (board[i] == wB)
             {
@@ -149,8 +154,45 @@ std::vector<Move> BoardState::findLegalMoves()
                         break;
                     }
                 }
+                continue;
             }
-             
+
+            // White Knights
+            if (board[i] == wN)
+            {
+                if ((board[i - 21] == empty) || ((board[i - 21] > 6) && (board[i - 21] < 13)))
+                {
+                    legalMoves.push_back(Move(i, i - 21));
+                }
+                if ((board[i - 19] == empty) || ((board[i - 19] > 6) && (board[i - 19] < 13)))
+                {
+                    legalMoves.push_back(Move(i, i - 19));
+                }
+                if ((board[i - 12] == empty) || ((board[i - 12] > 6) && (board[i - 12] < 13)))
+                {
+                    legalMoves.push_back(Move(i, i - 12));
+                }
+                if ((board[i - 8] == empty) || ((board[i - 8] > 6) && (board[i - 8] < 13)))
+                {
+                    legalMoves.push_back(Move(i, i - 8));
+                }
+                if ((board[i + 8] == empty) || ((board[i + 8] > 6) && (board[i + 8] < 13)))
+                {
+                    legalMoves.push_back(Move(i, i + 8));
+                }
+                if ((board[i + 12] == empty) || ((board[i + 12] > 6) && (board[i + 12] < 13)))
+                {
+                    legalMoves.push_back(Move(i, i + 12));
+                }
+                if ((board[i + 19] == empty) || ((board[i + 19] > 6) && (board[i + 19] < 13)))
+                {
+                    legalMoves.push_back(Move(i, i + 19));
+                }
+                if ((board[i + 21] == empty) || ((board[i + 21] > 6) && (board[i + 21] < 13)))
+                {
+                    legalMoves.push_back(Move(i, i + 21));
+                }
+            }
         }
     }
 
