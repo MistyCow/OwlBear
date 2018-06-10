@@ -66,8 +66,13 @@ std::vector<Move> BoardState::findLegalMoves()
                 {
                     legalMoves.push_back(Move(i, i + 11));
                 }
+                continue;
             }
+            // White Bishops
+            if (board[i] == wB)
+            {
 
+            }
              
         }
     }
