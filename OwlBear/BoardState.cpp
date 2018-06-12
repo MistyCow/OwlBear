@@ -27,11 +27,23 @@ BoardState::BoardState()
 
 BoardState::BoardState(SquareState boardIn[120], int plyIn)
 {
-    *board = *boardIn;
+    std::copy(boardIn, boardIn + 120, board);
     ply = plyIn;
 }
 
-std::vector<Move> BoardState::findLegalMoves()
+BoardState::BoardState(SquareState boardIn[120], Move moveIn, int oldPly, Side oldSide)
+{
+    std::copy(boardIn, boardIn + 120, board);
+
+    board[moveIn.to] = board[moveIn.from];
+    board[moveIn.from] = empty;
+
+    ply = oldPly + 1;
+    
+    oldSide == white ? side = black : side = white;
+}
+
+std::vector<Move> BoardState::findPseudoLegalMoves()
 {
     std::vector<Move> legalMoves;
 
@@ -863,4 +875,49 @@ std::vector<Move> BoardState::findLegalMoves()
     }
 
     return legalMoves;
+}
+
+// Prunes pseudoLegalMoves for any checks shenanigans
+std::vector<Move> BoardState::findLegalMoves()
+{
+
+    std::vector<Move> pseudoLegalMoves = findPseudoLegalMoves();
+    std::vector<Move> legalMoves;
+    for (int i = 0; i < pseudoLegalMoves.size(); i++)
+    {
+        if (!BoardState(board, pseudoLegalMoves[i], ply, side).inCheck())
+        {
+            legalMoves.push_back(pseudoLegalMoves[i]);
+        }
+    }
+
+    return legalMoves;
+}
+
+bool BoardState::isKingPresent()
+{
+    int offset = 0;
+    if (side == black)
+        offset = 6;
+
+    for (int i = 21; i < 99; i++)
+    {
+        if (board[i] == wK + offset)
+            return true;
+    }
+    return false;
+}
+
+bool BoardState::inCheck()
+{
+    side == white ? side = black : side = white; // We have to check possible enemy moves if we didn't do anything
+    std::vector<Move> enemyMoves = findPseudoLegalMoves();
+    side == white ? side = black : side = white; // After we have the moves we set the side back
+
+    for (int i = 0; i < enemyMoves.size(); i++)
+    {
+        if (!BoardState(board, enemyMoves[i], ply, side).isKingPresent()) // We check if our king has been captured
+            return true;
+    }
+    return false;
 }
