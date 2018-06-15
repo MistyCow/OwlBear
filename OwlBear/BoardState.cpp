@@ -921,3 +921,14 @@ bool BoardState::inCheck()
     }
     return false;
 }
+
+float BoardState::evaluate()
+{
+    float value = 0;
+
+    for (int i = 21; i < 99; i++)
+    {
+        value += pieceValues[board[i]];
+    }
+    return value;
+}
