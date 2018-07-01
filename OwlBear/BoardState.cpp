@@ -892,29 +892,18 @@ std::vector<Move> BoardState::findLegalMoves()
     return legalMoves;
 }
 
-bool BoardState::isKingPresent()
-{
-    int offset = 0;
-    if (side == black)
-        offset = 6;
-
-    for (int i = 21; i < 99; i++)
-    {
-        if (board[i] == wK + offset)
-            return true;
-    }
-    return false;
-}
-
 bool BoardState::inCheck()
 {
     side == white ? side = black : side = white; // We have to check possible enemy moves if we didn't do anything
     std::vector<Move> enemyMoves = findPseudoLegalMoves();
     side == white ? side = black : side = white; // After we have the moves we set the side back
+    short offset = 0;
+    if (side == black)
+        offset = 6;
 
     for (int i = 0; i < enemyMoves.size(); i++)
     {
-        if (!BoardState(board, enemyMoves[i], ply, side).isKingPresent()) // We check if our king has been captured
+        if (enemyMoves[i].captures == wK + offset) // We check if our king has been captured
             return true;
     }
     return false;
