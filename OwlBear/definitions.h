@@ -10,9 +10,10 @@ enum SquareState    // All the possible states of a square
 
 struct Move
 {
-    Move(int fromIn, int toIn);
-    int from;
-    int to;
+    Move(unsigned short fromIn, unsigned short toIn, SquareState capturesIn);
+    unsigned short from;
+    unsigned short to;
+    SquareState captures;
 };
 
 enum Side

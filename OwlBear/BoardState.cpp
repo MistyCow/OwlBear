@@ -39,7 +39,7 @@ BoardState::BoardState(SquareState boardIn[120], Move moveIn, int oldPly, Side o
     board[moveIn.from] = empty;
 
     ply = oldPly + 1;
-    
+
     oldSide == white ? side = black : side = white;
 }
 
@@ -55,39 +55,39 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
             // Check for sentry squares
             if (board[i] == illegal)
                 continue;
-         
+
             // And for empty squares
             if (board[i] == empty)
                 continue;
-            
+
             // White Pawns
             if (board[i] == wP)
             {
                 // Forward movement
                 if (board[i + 10] == empty)
                 {
-                    legalMoves.push_back(Move(i, i + 10));
+                    legalMoves.push_back(Move(i, i + 10, board[i + 10]));
 
                     // We can move two forward if we are on the second rank
                     if ((i > 30 && i < 39) && (board[i + 20] == empty))
                     {
-                        legalMoves.push_back(Move(i, i + 20));
+                        legalMoves.push_back(Move(i, i + 20, board[i + 20]));
                     }
                 }
 
                 // Captures
                 if ((board[i + 9] > 6) && (board[i + 9] < 13))  // SquareState > 6 = blackSomething, 13 = sentry
                 {
-                    legalMoves.push_back(Move(i, i + 9));
+                    legalMoves.push_back(Move(i, i + 9, board[i + 9]));
                 }
 
                 if ((board[i + 11] > 6) && (board[i + 11] < 13))
                 {
-                    legalMoves.push_back(Move(i, i + 11));
+                    legalMoves.push_back(Move(i, i + 11, board[i + 11]));
                 }
                 continue;
             }
-            
+
             // White Bishops
             if (board[i] == wB)
             {
@@ -96,7 +96,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] == illegal || board[j] <= 6)
@@ -105,7 +105,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                     }
                     if (board[j] > 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                 }
@@ -114,7 +114,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
 
@@ -125,7 +125,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
 
                     if (board[j] > 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                 }
@@ -134,7 +134,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
 
@@ -145,7 +145,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
 
                     if (board[j] > 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                 }
@@ -154,7 +154,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
 
@@ -165,7 +165,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
 
                     if (board[j] > 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                 }
@@ -177,39 +177,39 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
             {
                 if ((board[i - 21] == empty) || ((board[i - 21] > 6) && (board[i - 21] != illegal)))
                 {
-                    legalMoves.push_back(Move(i, i - 21));
+                    legalMoves.push_back(Move(i, i - 21, board[i - 21]));
                 }
                 if ((board[i - 19] == empty) || ((board[i - 19] > 6) && (board[i - 19] != illegal)))
                 {
-                    legalMoves.push_back(Move(i, i - 19));
+                    legalMoves.push_back(Move(i, i - 19, board[i - 19]));
                 }
                 if ((board[i - 12] == empty) || ((board[i - 12] > 6) && (board[i - 12] != illegal)))
                 {
-                    legalMoves.push_back(Move(i, i - 12));
+                    legalMoves.push_back(Move(i, i - 12, board[i - 12]));
                 }
                 if ((board[i - 8] == empty) || ((board[i - 8] > 6) && (board[i - 8] != illegal)))
                 {
-                    legalMoves.push_back(Move(i, i - 8));
+                    legalMoves.push_back(Move(i, i - 8, board[i - 8]));
                 }
                 if ((board[i + 8] == empty) || ((board[i + 8] > 6) && (board[i + 8] != illegal)))
                 {
-                    legalMoves.push_back(Move(i, i + 8));
+                    legalMoves.push_back(Move(i, i + 8, board[i + 8]));
                 }
                 if ((board[i + 12] == empty) || ((board[i + 12] > 6) && (board[i + 12] != illegal)))
                 {
-                    legalMoves.push_back(Move(i, i + 12));
+                    legalMoves.push_back(Move(i, i + 12, board[i + 12]));
                 }
                 if ((board[i + 19] == empty) || ((board[i + 19] > 6) && (board[i + 19] != illegal)))
                 {
-                    legalMoves.push_back(Move(i, i + 19));
+                    legalMoves.push_back(Move(i, i + 19, board[i + 19]));
                 }
                 if ((board[i + 21] == empty) || ((board[i + 21] > 6) && (board[i + 21] != illegal)))
                 {
-                    legalMoves.push_back(Move(i, i + 21));
+                    legalMoves.push_back(Move(i, i + 21, board[i + 21]));
                 }
                 continue;
             }
-            
+
             // White Rook
             if (board[i] == wR)
             {
@@ -217,42 +217,42 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] > 6 && board[j] < 13)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                     // Else
                     break;
                 }
-                for (int j = i - 1; j > 20; j --)
+                for (int j = i - 1; j > 20; j--)
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] > 6 && board[j] < 13)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                     // Else
                     break;
                 }
-                for (int j = i + 1; j < 99; j ++)
+                for (int j = i + 1; j < 99; j++)
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] > 6 && board[j] < 13)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                     // Else
@@ -262,12 +262,12 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] > 6 && board[j] < 13)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                     // Else
@@ -284,7 +284,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] == illegal || board[j] <= 6)
@@ -293,7 +293,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                     }
                     if (board[j] > 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                 }
@@ -302,7 +302,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
 
@@ -313,7 +313,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
 
                     if (board[j] > 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                 }
@@ -322,7 +322,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
 
@@ -333,7 +333,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
 
                     if (board[j] > 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                 }
@@ -342,7 +342,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
 
@@ -353,7 +353,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
 
                     if (board[j] > 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                 }
@@ -361,12 +361,12 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] > 6 && board[j] < 13)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                     // Else
@@ -376,12 +376,12 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] > 6 && board[j] < 13)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                     // Else
@@ -391,12 +391,12 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] > 6 && board[j] < 13)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                     // Else
@@ -406,12 +406,12 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] > 6 && board[j] < 13)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                     // Else
@@ -421,40 +421,39 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
             }
 
             // White King
-            // TODO: Stop the king from walking into checks, or, if under check, avoid any moves that end with the king in check
             if (board[i] == wK)
             {
                 if ((board[i - 11] == empty) || (board[i - 11] > 6 && board[i - 11] < 13))
                 {
-                    legalMoves.push_back(Move(i, i - 11));
+                    legalMoves.push_back(Move(i, i - 11, board[i - 11]));
                 }
                 if ((board[i - 10] == empty) || (board[i - 10] > 6 && board[i - 10] < 13))
                 {
-                    legalMoves.push_back(Move(i, i - 10));
+                    legalMoves.push_back(Move(i, i - 10, board[i - 10]));
                 }
                 if ((board[i - 9] == empty) || (board[i - 9] > 6 && board[i - 9] < 13))
                 {
-                    legalMoves.push_back(Move(i, i - 9));
+                    legalMoves.push_back(Move(i, i - 9, board[i - 9]));
                 }
                 if ((board[i - 1] == empty) || (board[i - 1] > 6 && board[i - 1] < 13))
                 {
-                    legalMoves.push_back(Move(i, i - 1));
+                    legalMoves.push_back(Move(i, i - 1, board[i - 1]));
                 }
                 if ((board[i + 1] == empty) || (board[i + 1] > 6 && board[i + 1] < 13))
                 {
-                    legalMoves.push_back(Move(i, i + 1));
+                    legalMoves.push_back(Move(i, i + 1, board[i + 1]));
                 }
                 if ((board[i + 9] == empty) || (board[i + 9] > 6 && board[i + 9] < 13))
                 {
-                    legalMoves.push_back(Move(i, i + 9));
+                    legalMoves.push_back(Move(i, i + 9, board[i + 9]));
                 }
                 if ((board[i + 10] == empty) || (board[i + 10] > 6 && board[i + 10] < 13))
                 {
-                    legalMoves.push_back(Move(i, i + 10));
+                    legalMoves.push_back(Move(i, i + 10, board[i + 10]));
                 }
                 if ((board[i + 11] == empty) || (board[i + 11] > 6 && board[i + 11] < 13))
                 {
-                    legalMoves.push_back(Move(i, i + 11));
+                    legalMoves.push_back(Move(i, i + 11, board[i + 11]));
                 }
             }
         }
@@ -478,24 +477,24 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 // Forward movement
                 if (board[i - 10] == empty)
                 {
-                    legalMoves.push_back(Move(i, i - 10));
+                    legalMoves.push_back(Move(i, i - 10, board[i + 10]));
 
                     // We can move two forward if we are on the second rank
                     if ((i > 80 && i < 99) && (board[i - 20] == empty))
                     {
-                        legalMoves.push_back(Move(i, i - 20));
+                        legalMoves.push_back(Move(i, i - 20, board[i - 20]));
                     }
                 }
 
                 // Captures
                 if ((board[i - 9] <= 6) && (board[i - 9] != empty))  // SquareState > 6 = blackSomething, 13 = sentry
                 {
-                    legalMoves.push_back(Move(i, i - 9));
+                    legalMoves.push_back(Move(i, i - 9, board[i - 9]));
                 }
 
                 if ((board[i - 11] <= 6) && (board[i - 11] != empty))
                 {
-                    legalMoves.push_back(Move(i, i - 11));
+                    legalMoves.push_back(Move(i, i - 11, board[i - 11]));
                 }
                 continue;
             }
@@ -508,7 +507,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] == illegal || board[j] > 6)
@@ -517,7 +516,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                     }
                     if (board[j] <= 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                 }
@@ -526,7 +525,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
 
@@ -537,7 +536,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
 
                     if (board[j] <= 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                 }
@@ -546,7 +545,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
 
@@ -557,7 +556,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
 
                     if (board[j] <= 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                 }
@@ -566,7 +565,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
 
@@ -577,7 +576,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
 
                     if (board[j] <= 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                 }
@@ -589,35 +588,35 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
             {
                 if ((board[i - 21] == empty) || ((board[i - 21] <= 6) && (board[i - 21] != illegal)))
                 {
-                    legalMoves.push_back(Move(i, i - 21));
+                    legalMoves.push_back(Move(i, i - 21, board[i - 21]));
                 }
                 if ((board[i - 19] == empty) || ((board[i - 19] <= 6) && (board[i - 19] != illegal)))
                 {
-                    legalMoves.push_back(Move(i, i - 19));
+                    legalMoves.push_back(Move(i, i - 19, board[i - 19]));
                 }
                 if ((board[i - 12] == empty) || ((board[i - 12] <= 6) && (board[i - 12] != illegal)))
                 {
-                    legalMoves.push_back(Move(i, i - 12));
+                    legalMoves.push_back(Move(i, i - 12, board[i - 12]));
                 }
                 if ((board[i - 8] == empty) || ((board[i - 8] <= 6) && (board[i - 8] != illegal)))
                 {
-                    legalMoves.push_back(Move(i, i - 8));
+                    legalMoves.push_back(Move(i, i - 8, board[i - 8]));
                 }
                 if ((board[i + 8] == empty) || ((board[i + 8] <= 6) && (board[i + 8] != illegal)))
                 {
-                    legalMoves.push_back(Move(i, i + 8));
+                    legalMoves.push_back(Move(i, i + 8, board[i + 8]));
                 }
                 if ((board[i + 12] == empty) || ((board[i + 12] <= 6) && (board[i + 12] != illegal)))
                 {
-                    legalMoves.push_back(Move(i, i + 12));
+                    legalMoves.push_back(Move(i, i + 12, board[i + 12]));
                 }
                 if ((board[i + 19] == empty) || ((board[i + 19] <= 6) && (board[i + 19] != illegal)))
                 {
-                    legalMoves.push_back(Move(i, i + 19));
+                    legalMoves.push_back(Move(i, i + 19, board[i + 19]));
                 }
                 if ((board[i + 21] == empty) || ((board[i + 21] <= 6) && (board[i + 21] != illegal)))
                 {
-                    legalMoves.push_back(Move(i, i + 21));
+                    legalMoves.push_back(Move(i, i + 21, board[i + 21]));
                 }
                 continue;
             }
@@ -629,12 +628,12 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] <= 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                     // Else
@@ -644,12 +643,12 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] <= 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                     // Else
@@ -659,12 +658,12 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] <= 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                     // Else
@@ -674,12 +673,12 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] <= 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                     // Else
@@ -697,7 +696,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] == illegal || board[j] > 6)
@@ -706,7 +705,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                     }
                     if (board[j] <= 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                 }
@@ -715,7 +714,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
 
@@ -726,7 +725,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
 
                     if (board[j] <= 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                 }
@@ -735,7 +734,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
 
@@ -746,7 +745,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
 
                     if (board[j] <= 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                 }
@@ -755,7 +754,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
 
@@ -766,7 +765,7 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
 
                     if (board[j] <= 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                 }
@@ -775,12 +774,12 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] <= 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                     // Else
@@ -790,12 +789,12 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] <= 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                     // Else
@@ -805,12 +804,12 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] <= 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                     // Else
@@ -820,12 +819,12 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
                 {
                     if (board[j] == empty)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         continue;
                     }
                     if (board[j] <= 6)
                     {
-                        legalMoves.push_back(Move(i, j));
+                        legalMoves.push_back(Move(i, j, board[j]));
                         break;
                     }
                     // Else
@@ -835,40 +834,39 @@ std::vector<Move> BoardState::findPseudoLegalMoves()
             }
 
             // Black King
-            // TODO: Stop the king from walking into checks, or, if under check, avoid any moves that end with the king in check
             if (board[i] == bK)
             {
                 if ((board[i - 11] == empty) || (board[i - 11] <= 6))
                 {
-                    legalMoves.push_back(Move(i, i - 11));
+                    legalMoves.push_back(Move(i, i - 11, board[i - 11]));
                 }
                 if ((board[i - 10] == empty) || (board[i - 10] <= 6))
                 {
-                    legalMoves.push_back(Move(i, i - 10));
+                    legalMoves.push_back(Move(i, i - 10, board[i - 10]));
                 }
                 if ((board[i - 9] == empty) || (board[i - 9] <= 6))
                 {
-                    legalMoves.push_back(Move(i, i - 9));
+                    legalMoves.push_back(Move(i, i - 9, board[i - 9]));
                 }
                 if ((board[i - 1] == empty) || (board[i - 1] <= 6))
                 {
-                    legalMoves.push_back(Move(i, i - 1));
+                    legalMoves.push_back(Move(i, i - 1, board[i - 1]));
                 }
                 if ((board[i + 1] == empty) || (board[i + 1] <= 6))
                 {
-                    legalMoves.push_back(Move(i, i + 1));
+                    legalMoves.push_back(Move(i, i + 1, board[i + 1]));
                 }
                 if ((board[i + 9] == empty) || (board[i + 9] <= 6))
                 {
-                    legalMoves.push_back(Move(i, i + 9));
+                    legalMoves.push_back(Move(i, i + 9, board[i + 9]));
                 }
                 if ((board[i + 10] == empty) || (board[i + 10] <= 6))
                 {
-                    legalMoves.push_back(Move(i, i + 10));
+                    legalMoves.push_back(Move(i, i + 10, board[i + 10]));
                 }
                 if ((board[i + 11] == empty) || (board[i + 11] <= 6))
                 {
-                    legalMoves.push_back(Move(i, i + 11));
+                    legalMoves.push_back(Move(i, i + 11, board[i + 11]));
                 }
             }
         }
