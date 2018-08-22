@@ -14,6 +14,7 @@ struct Move
     unsigned short from;
     unsigned short to;
     SquareState captures;
+    float eval;
 };
 
 enum Side

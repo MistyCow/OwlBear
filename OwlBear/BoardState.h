@@ -19,8 +19,6 @@ public:
     std::vector<Move> findPseudoLegalMoves(); // Does not check for checks on the king
     std::vector<Move> findLegalMoves();
     
-
-    bool isKingPresent();
     bool inCheck();
 
     float evaluate();
